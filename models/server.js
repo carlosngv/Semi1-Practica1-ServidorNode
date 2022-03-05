@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const usersRouter = require('../routes/users.routes');
-const photoRouter = require('../routes/photo.routes');
+
+const bodyParser = require('body-parser');
+const appRouter = require('../routes/routes');
 
 class Server {
     constructor() {
@@ -14,11 +15,12 @@ class Server {
     middlewares() {
         this.app.use(cors());
         this.app.use(express.json());
+        this.app.use(bodyParser.json())
+
     }
 
     routes() {
-        this.app.use('/api/users', usersRouter);
-        this.app.use('/api/photos', photoRouter);
+        this.app.use('/', appRouter);
     }
 
     listen(){
